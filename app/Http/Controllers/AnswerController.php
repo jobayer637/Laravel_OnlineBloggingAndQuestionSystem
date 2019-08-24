@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Answer;
+use App\ReplyAns;
+
+class AnswerController extends Controller
+{
+    function Answer(Request $req, $id){
+    	$ans = new Answer();
+    	$ans->user_id = Auth::user()->id;
+    	$ans->ques_id = $id;
+    	$ans->body = $req->qanswer;
+    	$ans->save();
+    	return redirect()->back();
+    }
+
+    function ReplyAnswer(Request $req, $id){
+    	$reply_ans = new ReplyAns();
+    	$reply_ans->user_id = Auth::user()->id;
+    	$reply_ans->ans_id = $id;
+    	$reply_ans->ques_id = $req->qu_id;
+    	$reply_ans->body = $req->reans;
+    	$reply_ans->save();
+    	return redirect()->back();
+    }
+}

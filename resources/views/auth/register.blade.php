@@ -8,13 +8,14 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
+                  <div class="mt-4">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <div class="form-group">
+                            <label for="name" class="text-md-right">{{ __('Name') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -25,11 +26,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="form-group">
+                            <label for="email" class=" text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            <div class="">
+                                <input  type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -39,19 +40,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="p-image" class="col-md-4 col-form-label text-md-right">{{ __('Profile_image') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="image" type="file"  name="image"  required>
-                            </div>
+                        <div class="input-group mb-3">
+
+                          <div class="custom-file col-lg-12 col-md-12 col-sm-12 col-12">
+                            <input type="file"  class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" name="image"  required>
+                            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                          </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        <div class="form-group">
+                            <label for="password" class="text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <div class="">
+                                <input  type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -61,22 +63,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                        <div class="form-group">
+                            <label for="password-confirm" class="text-md-right">{{ __('Confirm Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group mb-0">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+                  </div>
                 </div>
             </div>
         </div>

@@ -28,21 +28,16 @@
         <div class="form-group col-lg-10 col-md-9 col-sm-12 col-12">
           <select name="category" class="form-control show-tick" data-live-search="true">
               <option value="0">Select a category</option>
-              <option value="Java">Java</option>
-              <option value="Python">Python</option>
-              <option value="C/C++">C/C++</option>
-              <option value="PHP">PHP</option>
-              <option value="HTML/CSS">HTML/CSS</option>
-              <option value="Wordpress">Wordpress</option>
-              <option value="Design">Design</option>
-              <option value="General">General</option>
+              @foreach($types as $types)
+                  <option value="{{$types->id}}">{{$types->name}}</option>
+              @endforeach
           </select>
           <small>Please choose the appropriate section so easily search for your question .</small>
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="question-title" class="col-lg-2 col-md-3 col-sm-12 col-12 col-form-label">Image</label>
+        <label for="question-title" class="col-lg-2 col-md-3 col-sm-12 col-12 col-form-label">Image (optional)</label>
         <div class="col-lg-10 col-md-9 col-sm-12 col-12">
           <input type="file" name="image" class="" id="validatedCustomFile">
         </div>
@@ -72,7 +67,7 @@
         tinymce.init({
             selector: "textarea#tinymce",
             theme: "modern",
-            height: 300,
+            height: 200,
             plugins: [
                 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                 'searchreplace wordcount visualblocks visualchars code fullscreen',

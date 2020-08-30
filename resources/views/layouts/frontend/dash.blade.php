@@ -9,10 +9,6 @@
 
     <title>@yield('title')</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -67,6 +63,27 @@
       <!-- end footer section -->
   </div>
 <!-- end app section -->
+<script src="{{asset('js/ajax.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
+
+<script type="text/javascript">
+  $("#topheaderToggleBtn, #signinForAskQuestionId").on('click', function(){
+    $(".topHeader").slideToggle("slow");
+  })
+  $("#pleaseSigninId, .pleaseSigninClass").on('click', function(){
+    $(".topHeader").slideDown("slow");
+  })
+  $("#toggleRegisterBtnId, #registerCancelBtn").on('click', function(){
+    $("#registerFormId, #toggleBtnId").slideToggle("slow");
+  })
+</script>
+
+<script type="text/javascript">
+  $("#toggleNavBarId").on('click', function(){
+    $("#navbarSupportedContent").slideToggle(1000);
+  });
+</script>
+
 
 @stack('jscript')
 

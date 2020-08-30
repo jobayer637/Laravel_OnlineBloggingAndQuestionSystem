@@ -42,7 +42,6 @@
                                 <tr>
                                     <th>S/L</th>
                                     <th>Category Name</th>
-                                    <th>Category Image</th>
                                     <th>Created at</th>
                                     <th>Update at</th>
                                     <th>Action</th>
@@ -52,7 +51,6 @@
                                 <tr>
                                     <th>S/L</th>
                                     <th>Category Name</th>
-                                    <th>Category Image</th>
                                     <th>Created at</th>
                                     <th>Update at</th>
                                     <th>Action</th>
@@ -60,20 +58,16 @@
                                 </tfoot>
                                 <tbody>
                                 @foreach($categories as $i=>$value)
-                                    <tr>
+                                    <tr id="row_{{$value->id}}">
                                         <td>{{$i+1}}</td>
                                         <td>{{$value->name}}</td>
-                                        <td><img src="http://localhost:8000/storage/category/{{$value->image}}" alt="image" height="50px" width="60px"></td>
                                         <td>{{$value->created_at}}</td>
                                         <td>{{$value->updated_at}}</td>
                                         <td>
-                                            <a href="{{route('admin.category.edit',$value->id)}}" class="btn btn-primary disabled" style="float:left; margin-right: 5px; margin-bottom: 5px;">Edit</a>
-                                            <button class="btn btn-primary disabled" type="button" name="button">Delete</button>
-                                            <!-- <form action="{{ route('admin.category.destroy',$value->id) }}" method="POST" style="float:left;">
+                                            {{--  <a href="{{route('admin.category.edit',$value->id)}}" class="btn btn-primary disabled" style="float:left; margin-right: 5px; margin-bottom: 5px;">Edit</a>--}}
+                                            <button data-route="{{ route('admin.category.destroy',$value->id) }}" class="deleteCategoryBtn btn btn-sm btn-danger" type="button" name="button"> <i class="material-icons">delete_sweep</i></button>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Are you sure? You want to delete this tag?')" class="btn btn-primary disabled">Delete</button>
-                                            </form> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -102,4 +96,24 @@
     <script src="{{asset('assests/backend/plugins/jquery-datatable/extensions/export/buttons.print.min.js')}}"></script>
 
     <script src="{{asset('assests/backend/js/pages/tables/jquery-datatable.js')}}"></script>
+
+{{--  start  delete category section--}}
+    <script>
+        $(".deleteCategoryBtn").on('click', function () {
+            if(!confirm('Are you sure?')) return false;
+            var route = $(this).data('route');
+            var token = $('input[name=_token]').val();
+            $.ajax({
+                type:'DELETE',
+                url:route,
+                data:{
+                    _token:token,
+                },
+                success:function (data) {
+                    $("#row_"+data).remove();
+                }
+            })
+        })
+    </script>
+{{--  end  delete category section--}}
 @endpush

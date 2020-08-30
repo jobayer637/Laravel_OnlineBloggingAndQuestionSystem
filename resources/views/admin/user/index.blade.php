@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            SHOW ALL ARTICLES
+                            SHOW ALL Users
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
@@ -44,8 +44,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Image</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -56,8 +54,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Image</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -68,9 +64,13 @@
                                         <td>{{$i+1}}</td>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->email}}</td>
-                                        <td><img src="http://localhost:8000/storage/article/{{$value->image}}" alt="image" height="50px" width="60px"></td>
-                                        <td>{{$value->gender}}</td>
-                                        <td>{{$value->phone}}</td>
+                                        <td>
+                                            @if($value->avatar=='')
+                                                <img src="http://localhost:8000/storage/article/{{$value->image}}" alt="image" height="50px" width="50px">
+                                                @else
+                                                <img src="{{$value->avatar}}" alt="image" height="50px" width="50px" style="border-radius: 50%">
+                                            @endif
+                                        </td>
                                         <td>{{$value->role->name}}</td>
                                         <td>
                                             <a href="" class="btn btn-primary" style="float:left; margin-right: 5px; margin-bottom: 5px;">View</a>

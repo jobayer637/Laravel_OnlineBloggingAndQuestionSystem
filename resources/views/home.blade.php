@@ -2,49 +2,51 @@
 @section('title','Ask-anything/home')
 @section("welcome")
  <div class="row">
-            <div class="col-lg-4 pr-4">
-                <h2 class="text-white mb-4">
-                    Welcome to Ask Me Anything
-                </h2>
-                <p class="pr-4 text-white">Ask us anything anout thchnology! We'll try to give you comprehensive answers and provide as much help as we can. Our goal is to make this site helpful for students who are interested in programming, problem-solving,projects, and basically anything tech-related.</p>
-
-                @if(Auth::check())
-                <a href="{{route('askquestion')}}" class="btn btn-dark float-left mb-2">Ask question</a>
-                @else
-                <a style="cursor: pointer;" class="btn btn-dark float-left text-white mb-2" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">ASK-QUESTION</a>
-                @endif
-
+            <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="form-group">
+                    <form id="myFormId" method="post" action="{{route('searchQuestionByType')}}">
+                        @csrf
+                        <select name="type" id="inputState" class="form-control  rounded-0">
+                            <option value="0" selected>Search by Question Types</option>
+                            @foreach($types as $type)
+                                <option {{$id==$type->id?'selected':''}} value="{{$type->id}}">{{$type->name}}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
             </div>
-            <div class="col-lg-8 col-md-8">
-              <img class="shadow-sm" src="http://localhost:8000/storage/images/login_page/welcome.jpg" alt="" height="100%" width="100%" style="max-height:400px;">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 col-12">
+
             </div>
         </div>
 @endsection
 
 @section('content')
+<!-- Data search section -->
+<div class="card rounded-0">
+  <div class="card-header p-0 m-0 bg-white">
+    <div class="input-group ">
+      <input id="searchQuestionId" type="text" class="form-control rounded-0" placeholder="Search here...">
+    </div>
+  </div>
+  <ul id="showSearchValue" class="list-group list-group-flush">
+   <!-- search data show here -->
+ </ul>
+</div>
+<br>
   <!-- start Priority and content section -->
-  <div class="mt-2">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active pl-4 pr-4 text-secondary" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">All Question</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link pl-4 pr-4 text-secondary" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Answered question</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link pl-4 pr-4 text-secondary" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Unanswered question</a>
-      </li>
-    </ul>
+  <div class="mt-4" >
     <div class="tab-content" id="myTabContent">
-
       <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         @foreach($ques as $value)
         <div class="mt-1" style="background-color: #fff;">
             <div class="card-body shadow-sm">
-
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="mb-4">
-                          <button class="mb-3 mr-4 btn rounded-0 p-0 pr-1 pl-1">{{$value->category}}</button>
+
+                            <button class="mb-3 mr-4 btn rounded-0 p-0 pr-1 pl-1">{{$value->type->name}}</button>
+
                           <button class="mb-3 btn bg-white rounded-0 p-0 pr-1 pl-1">
                             <?php
                               $dt= Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at);
@@ -57,9 +59,10 @@
                             </h4>
 
                         </div>
-                        <p class="dom text-justify text-secondary" style="font-size:17px;">
-                          {{$value->body}}
-                        </p>
+
+                        <div data-value="{{$value->body}}" class="bodyLimit">
+                          <!-- question description -->
+                        </div>
 
                         <span class="mr-3">
                           @if($value->user->avatar=="profile.jpg")
@@ -69,7 +72,7 @@
                           @endif
                           {{$value->user->name}}
                         </span>
-                        <span class="mr-3">Answer-2</span>
+                        <span class="mr-3">Answer {{$value->answers->count()}}</span>
                     </div>
 
             </div>
@@ -91,39 +94,101 @@
   <div class="mt-4">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-end">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        <li class="page-item {{$ques->onFirstPage()?'disabled':''}}">
+          <a class="page-link" href="{{$ques->previousPageUrl()}}">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
+        <li class="page-item"><a class="page-link" href="">{{$ques->currentPage()}}</a></li>
+        <li class="page-item {{$ques->hasMorePages()?'':'disabled'}}">
+          <a class="page-link" href="{{$ques->nextPageUrl()}}">Next</a>
         </li>
       </ul>
     </nav>
   </div>
   <!-- end pagination section -->
 
-  @push('jscript')
-  <script type="text/javascript">
-    var cp = document.getElementsByClassName("dom");
-    var cpl = cp.length;
-    var i,j;
-
-    for(i=0;i<cpl;i++){
-      var sp = cp[i].innerHTML;
-      var l = sp.length;
-
-      cp[i].innerHTML =" ";
-      for(j=0;j<l;j++){
-        cp[i].innerHTML += sp[j];
-        if(j==200){
-          cp[i].innerHTML += ".....";
-          break;
-        }
-      }
-    }
-  </script>
-  @endpush
 @endsection
+
+@push('jscript')
+<!-- start search question part -->
+<script type="text/javascript">
+    $("#inputState").on('change', function () {
+        $("#myFormId").submit();
+    });
+    var typeId=0;
+  $("#searchQuestionId").on('keyup', function(){
+    $.ajax({
+      type:'get',
+      url:"{{route('searchQuestion')}}",
+      data:{
+          value:$(this).val(),
+          id:typeId,
+      },
+      success:function(data){$("#showSearchValue").html(data)}
+    });
+  });
+</script>
+<!-- End search question part -->
+
+<!-- start subsribe &  unSubscribe part -->
+<script type="text/javascript">
+  $("#subscribeBtn").on('click', function(){
+    subscribe();
+  });
+  function userSubscribe(){
+    subscribe();
+  }
+  function subscribe(){
+    var subscriberEmail = $("#subscriberId").val();
+    var token = $('input[name=_token]').val();
+    if(subscriberEmail==''){
+      alert("please enter your email");
+    }else{
+      $.ajax({
+        type: 'post',
+        url: "{{route('addSubscriber')}}",
+        data:{
+          _token:token,
+          email:subscriberEmail,
+        },
+        success:function(data){
+          $("#jobayer").html(data);
+        }
+      });
+    }
+  }
+
+  $("#unSubscribeId").on('click', function(){
+    if (!confirm('Are you sure?')) return false;
+    unSubscribe();
+  });
+  function userUnsubscribe(){
+    if (!confirm('Are you sure?')) return false;
+    unSubscribe();
+  }
+  function unSubscribe(){
+    var token = $('input[name=_token]').val();
+    $.ajax({
+      type: 'post',
+      url: "{{route('unSubscribe')}}",
+      data:{
+        _token:token,
+      },
+      success:function(data){
+        $("#jobayer").html(data);
+      }
+    })
+  }
+</script>
+<!-- End subsribe &  unSubscribe part -->
+
+<script type="text/javascript">
+ $(".bodyLimit").each(function(){
+   var val = $(this).data('value');
+     if(val.length==0){
+     }else{
+       if(val.length > 200) val = val.substring(0,200);
+       $(this).append(val+"....")
+     }
+ })
+</script>
+@endpush

@@ -6,11 +6,45 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid">
-        <div class="block-header">
-            <h2>DASHBOARD</h2>
+{{--    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">--}}
+{{--        <div class="">--}}
+{{--            <div class="media">--}}
+{{--                <div class="media-left">--}}
+{{--                    <a href="javascript:void(0);">--}}
+{{--                        <img class="media-object" src="{{Auth::user()->avatar}}" width="64" height="64">--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div class="media-body">--}}
+{{--                    <h4 class="media-heading">{{Auth::user()->role->name}}</h4>--}}
+{{--                    <h6>{{Auth::user()->name}}</h6>--}}
+{{--                    <h6>{{Auth::user()->email}}</h6>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
+        <!-- Badges -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Online Blogging and question system
+                    </h2>
+                </div>
+                <div class="body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Total Users</strong> <span class="badge bg-pink">{{$user->count('id')}}</span></li>
+                        <li class="list-group-item"><strong>Total Subscribers</strong> <span class="badge bg-pink">{{$subscriber->count('id')}}</span></li>
+                        <li class="list-group-item"><strong>Total Blogs</strong> <span class="badge bg-cyan">{{$blog->count('id')}}</span></li>
+                        <li class="list-group-item"><strong>Total Questions</strong> <span class="badge bg-teal">{{$question->count('id')}}</span></li>
+                        <li class="list-group-item"><strong>Total Comments</strong> <span class="badge bg-orange">{{$comment->count('id')}}</span></li>
+                        <li class="list-group-item"><strong>Total Answers</strong> <span class="badge bg-purple">{{$answer->count('id')}}</span></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
+        <!-- #END# Badges -->
+
 @endsection
 
 @push('js')

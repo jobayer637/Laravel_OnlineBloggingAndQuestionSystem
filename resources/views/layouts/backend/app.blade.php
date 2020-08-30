@@ -17,8 +17,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="{{asset('assests/backend/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet
-    
+
+    <link href="{{asset('assests/backend/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet" />
+
     <!-- Waves Effect Css -->
     <link href="{{asset('assests/backend/plugins/node-waves/waves.css')}}" rel="stylesheet" />
 

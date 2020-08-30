@@ -40,34 +40,31 @@
     <!-- Menu -->
     <div class="menu">
         <ul class="list">
-
-            <li class="header">MAIN NAVIGATION</li>
-
             @if(Request::is('admin*'))
                 <li class="{{Request::is('admin/dashboard')?'active':''}}">
                     <a href="{{route('admin.dashboard')}}">
-                        <i class="material-icons">home</i>
+                        <i class="material-icons">video_label</i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li class="{{Request::is('admin/user*')?'active':''}}">
                     <a href="{{route('admin.user.index')}}">
-                        <i class="material-icons">home</i>
+                        <i class="material-icons">people</i>
                         <span>Users</span>
                     </a>
                 </li>
 
                 <li class="{{Request::is('admin/blog*')?'active':''}}">
                     <a href="{{route('admin.blog.index')}}">
-                        <i class="material-icons">B</i>
+                        <i class="material-icons">view_list</i>
                         <span>Blog</span>
                     </a>
                 </li>
 
                 <li class="{{Request::is('admin/question*')?'active':''}}">
                     <a href="{{route('admin.question.index')}}">
-                        <i class="material-icons">Q</i>
+                        <i class="material-icons">help</i>
                         <span>Question</span>
                     </a>
                 </li>
@@ -76,15 +73,10 @@
 
                 <li class="{{Request::is('admin/category*')?'active':''}}">
                     <a href="{{route('admin.category.index')}}">
-                        <i class="material-icons">C</i>
+                        <i class="material-icons">flip_to_back</i>
                         <span>Categories</span>
                     </a>
                 </li>
-
-
-
-
-
 
 
                 <li class="header">SYSTEM</li>
@@ -116,10 +108,7 @@
     <!-- Footer -->
     <div class="legal">
         <div class="copyright">
-            &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
-        </div>
-        <div class="version">
-            <b>Version: </b> 1.0.5
+            {{date("Y")}} &copy; Developed by Jobayer Hossain
         </div>
     </div>
     <!-- #Footer -->

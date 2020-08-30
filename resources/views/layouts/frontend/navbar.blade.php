@@ -1,8 +1,8 @@
 <div class="container-fluid" style="background-color: #2f3239;">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-dark pt-4 pb-4" style="background-color: #2f3239;">
-          <a class="navbar-brand" href="{{route('index')}}">ASK ME</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="{{route('index')}}">ASK ANYTHING</a>
+          <button id="toggleNavBarId" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -17,7 +17,7 @@
                 @if(Auth::check())
                 <a class="nav-link" href="{{route('askquestion')}}">ASK-QUESTION</a>
                 @else
-                <a style="cursor: pointer;" class="nav-link" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">ASK-QUESTION</a>
+                <a style="cursor: pointer;" class="nav-link" id="signinForAskQuestionId">ASK-QUESTION</a>
                 @endif
               </li>
 

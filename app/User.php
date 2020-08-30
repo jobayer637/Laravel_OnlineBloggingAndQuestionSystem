@@ -63,4 +63,7 @@ class User extends Authenticatable
     public function reply_comments(){
       return $this->hasMany('App\replyComment');
     }
+    public function likes(){
+      return $this->hasMany('App\Like');
+    }
 }
